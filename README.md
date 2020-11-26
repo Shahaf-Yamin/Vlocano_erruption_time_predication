@@ -1,2 +1,2 @@
-# template_tensorflow2_project
-This repository contains a template project for TensorFlow2.0
+# Volcano Erruption Project
+This repository contains the volcano erruption project implemented in python3.7
