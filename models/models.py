@@ -1,15 +1,20 @@
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, MaxPooling2D, Flatten, Conv2D, Softmax
+from lightgbm import LGBMRegressor
 
 def build_model(config):
-    if config.model_name == "mnist-cnn":
-        model = {'train': CNNModel(config),
-                 'eval':  CNNModel(config) }
+    if config.model_name == "LGBM":
+        model = {'train': LGBM(config),
+                 'eval':  LGBM(config)}
 
     else:
         raise ValueError("'{}' is an invalid model name")
 
     return model
+
+def LGBM(config):
+    return LGBMRegressor(random_state=666, max_depth=config.LGBM_max_depth,
+                        n_estimators=config.LGBM_number_of_estimators, learning_rate=config.learning_rate)
 
 def CNNModel(config):
 
