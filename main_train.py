@@ -1,33 +1,37 @@
-from trainers.trainer import build_trainer
-from data.data_loader import load_data
+from trainers.trainer import train
+from data.data_loader import load_data,preprocess_data
 from models.models import build_model
 from utils.utils import preprocess_meta_data
-import tensorflow as tf
-from sklearn.model_selection import train_test_split
 
-tf.keras.backend.set_floatx('float32')
+import pandas as pd
+
+#tf.keras.backend.set_floatx('float32')
 
 def main():
     # capture the config path from the run arguments
     # then process configuration file
     config = preprocess_meta_data()
 
-    # load the data
-    data = load_data(config)
-    X, y = data['train']
-    X_train, X_val, y, y_val = train_test_split(X, y, random_state=666, test_size=0.2, shuffle=True)
-
     if not config.quiet:
         config.print()
+
+    # load the data
+    data,test_segment_id = load_data(config)
+
+    # preprocess data before training
+
+    data = preprocess_data(data,config)
 
     # create a model
     model = build_model(config)
 
     # create trainer
-    trainer = build_trainer(model, data, config)
+    p_test = train(model, data, config)
 
-    # train the model
-    trainer.train()
+    submission_save = pd.DataFrame()
+    submission_save['segment_id'] = test_segment_id
+    submission_save['time_to_eruption'] = p_test
+    submission_save.to_csv(f'{config.exp_name}.csv', header=True, index=False)
 
 
 if __name__ == '__main__':

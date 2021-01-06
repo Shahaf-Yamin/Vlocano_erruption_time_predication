@@ -1,30 +1,43 @@
 {
   "data_name": "volcano",
-  "model_name": "volcano-baseline",
+  "model_name": "kernel_knn",
   "model_input_dim": [28, 28, 1],
   "model_output_dim": 10,
-
+  "alpha": 0.1,
   "trainer_name": "regression",
 
   "eval_freq": 50,
   "quiet": null,
   "seed": null,
 
-  "exp_name": "tutorial",
+  "exp_name": "kernel_ridge_kernel_pca_knn_30_12",
   "run_name": "volcano-classification",
   "tag_name": "v1.0",
 
   "dataset_size": "max",
   "feature_version": "v1.0",
-  "with_feature_extraction": true,
+  "with_feature_extraction": false,
   "with_redudant_features": true,
+  "with_validation": true,
+
+  "read_and_remove_redudant_features": false,
+  "with_pca": true,
+  "with_psd": true,
+  "with_fft": true,
+  "max_psd_elements": 100,
+  "kernel_ridge_alpha": 0.0001,
+  "kernel_ridge_gamma": 0.013,
+
+  "knn_num_of_neighbors": 12,
+  "knn_num_classes": 30,
 
   "uncorrelated_cols_threshold": 0.01,
   "correlated_cols_threshold": 0.98,
 
   "with_train_histogram": false,
 
-  "with_missing_sensor_dist_analysis":false,
+  "with_missing_sensor_dist_analysis": false,
+  "with_missing_values_fill_from_gaussian_distrbution": false,
 
   "pairplot_sensors_correaltion": false,
   "pairplot_number_of_sensors": 3,
