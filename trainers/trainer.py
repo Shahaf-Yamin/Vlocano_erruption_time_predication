@@ -150,7 +150,7 @@ def classify_according_time2erruption(y_train,y_val,config):
 def generate_predications(model, data, config):
     classifier_array, classifer_val_array, sections = classify_according_time2erruption(data['train'][1], data['val'][1], config)
 
-    classfier_model = KNeighborsClassifier(n_neighbors=config.knn_num_of_neighbors,metric=mutual_info_score)  # , metric = gaussian_kernel)
+    classfier_model = KNeighborsClassifier(n_neighbors=config.knn_num_of_neighbors)  # , metric = gaussian_kernel)
     classfier_model.fit(data['train'][0], classifier_array)
     predicted = classfier_model.predict(data['test'])
     predicted_train = classfier_model.predict(data['train'][0])
